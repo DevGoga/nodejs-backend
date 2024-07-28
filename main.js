@@ -5,21 +5,25 @@
 Используя switch, напишите программу, которая мапит статусы внешнего API на наши статусы согласно этой табличке. 
 Предусмотрите значение по умолчанию \`pending\`, на случай, если во внешнем API появится новый статус`
 
-let external_status = "notaccepted";
-let main_status;
-switch (external_status) {
+let ExternalStatus = "notaccepted";
+let MainStatus;
+switch (ExternalStatus) {
     case "approved":
-        main_status = "approved";
+        MainStatus = "approved";
         break;
     case "pending":
-        main_status = "pending";
+    case "moderation":
+    case "waiting":
+        MainStatus = "pending";
         break;
     case "declined":
-        main_status = "declined";
+    case "rejected":
+    case "notaccepted":
+        MainStatus = "declined";
         break;
     default:
-        main_status = "pending";
+        MainStatus = "pending";
         break;
 }
 
-console.log(main_status);
+console.log(MainStatus);
