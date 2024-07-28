@@ -1,16 +1,15 @@
-`Напишите программу, которая для заранее известного числа выводит:
-
-- \`Fizz\`, если число делится нацело на 3
-- \`Buzz\`, если число делится нацело на 5
-- \`FizzBuzz\` если число делится и на 3 и на 5`
-
-const number = 45;
-if (number % 3 == 0) {
-    console.log('Fizz');
-}
-if (number % 5 == 0) {
-    console.log('Buzz');
-}
-if (number % 5 == 0 && number % 3 == 0) {
-    console.log('FizzBuzz');
+//Используя switch, напишите программу, которая по заданной роли пользователя выводит число - уровень его доступа
+let role = "admin";
+switch(role) {
+    case "user":
+    case "client":
+        console.log("1 уровень доступа");
+        break;
+    case "admin":
+    case "manager":
+        console.log("2 уровень доступа");
+        break;
+    case "superadmin":
+        console.log("3 уровень доступа");
+        break;
 }
