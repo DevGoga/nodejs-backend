@@ -1,29 +1,13 @@
-`Часто при интеграции вашего API с каким-либо сторонним API, необходимо писать так называемые “мапперы” 
-(”сопоставители”, от слова map - “сопоставить”), когда значения из внешних систем мы приводим 
-к значениям нашей системы и наоборот.
+`Напишите программу, которая для заранее известного числа выводит:
 
-Используя switch, напишите программу, которая мапит статусы внешнего API на наши статусы согласно этой табличке. 
-Предусмотрите значение по умолчанию \`pending\`, на случай, если во внешнем API появится новый статус`
-
-let ExternalStatus = "notaccepted";
-let MainStatus;
-switch (ExternalStatus) {
-    case "approved":
-        MainStatus = "approved";
-        break;
-    case "pending":
-    case "moderation":
-    case "waiting":
-        MainStatus = "pending";
-        break;
-    case "declined":
-    case "rejected":
-    case "notaccepted":
-        MainStatus = "declined";
-        break;
-    default:
-        MainStatus = "pending";
-        break;
+- \`Fizz\`, если число делится нацело на 3
+- \`Buzz\`, если число делится нацело на 5
+- \`FizzBuzz\` если число делится и на 3 и на 5`
+const number = 15;
+if (!(number % 5) && !(number % 3)) {
+    console.log('FizzBuzz');
+} else if (!(number % 5)) {
+    console.log('Buzz');
+} else if (!(number % 3)) {
+    console.log('Fizz');
 }
-
-console.log(MainStatus);
