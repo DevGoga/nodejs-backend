@@ -1,13 +1,18 @@
-`Напишите программу, которая для заранее известного числа выводит:
+` Простые условия. Одна строка.
 
-- \`Fizz\`, если число делится нацело на 3
-- \`Buzz\`, если число делится нацело на 5
-- \`FizzBuzz\` если число делится и на 3 и на 5`
-const number = 15;
-if (!(number % 5) && !(number % 3)) {
-    console.log('FizzBuzz');
-} else if (!(number % 5)) {
-    console.log('Buzz');
-} else if (!(number % 3)) {
-    console.log('Fizz');
+    Дана строка. Выведите:
+
+- Первый символ, если длина строки четная
+- Последний символ, если длина строки нечетная
+- Предпоследний символ, если длина строки нечетная и строка оканчивается на букву “a”
+`
+const name = 'Rusla';
+if (!(name.length % 2)) {
+    console.log(name.charAt(0));
+} else if (name.length % 2 === 1  && name.charAt(-1).toLowerCase() === 'a')
+{
+    console.log(name.charAt(-1));
+} else if (name.length % 2 === 1)
+{
+    console.log(name.charAt(-2));
 }
