@@ -1,13 +1,30 @@
-// Запишите в две переменные два случайных целых числа от 1 до 6, в цикле while обновляйте
-// оба числа, пока не выпадет дубль (два одинаковых числа), посчитайте количество попыток и выведите их
-const min = 1;
-const max = 6;
-let count = 0;
-let randomnum1 = Math.floor(Math.random() * (max - min + 1)) + min;
-let randomnum2 = Math.floor(Math.random() * (max - min + 1)) + min;
-while (randomnum1 !== randomnum2) {
-  randomnum1 = Math.floor(Math.random() * (max - min + 1)) + min;
-  randomnum2 = Math.floor(Math.random() * (max - min + 1)) + min;
-  count++;
+//- Вывести все числа от 0 до 100
+// - Вывести все числа от -100 до 0
+// - Вывести все числа от 100 до 0
+// - Вывести все четные числа между 0 и 100
+// - Вывести все числа между 0 и 100, которые делятся на 3 или на 5
+// - Вывести все числа между 0 и 1000, у которых сумма первой и последней цифры равна 10 (Например 19, 55, 703)
+for (let i = 0; i <= 100; i++) {
+  console.log(i);
 }
-console.log(`Общее количество попыток: ${count}`);
+for (let i = 0; i >= -100; i--) {
+  console.log(i);
+}
+for (let i = 100; i >= 0; i--) {
+  console.log(i);
+}
+for (let i = 0; i <= 100; i++) {
+  if (i % 2 === 0) {
+    console.log(i);
+  }
+}
+for (let i = 0; i <= 100; i++) {
+  if (i % 3 === 0 || i % 5 === 0) {
+    console.log(i);
+  }
+}
+for (let i = 0; i <= 1000; i++) {
+  if (Number(i.toString().charAt(0)) + (i % 10) === 10) {
+    console.log(i);
+  }
+}
