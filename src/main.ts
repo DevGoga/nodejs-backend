@@ -1,13 +1,21 @@
-// Дан массив чисел. Необходимо посчитать количество положительных и отрицательных чисел, не учитывая последний
-const arrayNumber = [12, -123, 125, -99, 50];
-let positivNumber = 0;
-let negativNumber = 0;
-for (let i = 0; i < arrayNumber.length - 1; i++) {
-  if (arrayNumber[i] > 0) {
-    positivNumber++;
-  } else if (arrayNumber[i] < 0) {
-    negativNumber++;
+// Дан массив из чисел.
+// Необходимо найти среди этих чисел:
+// - Минимальное
+// - Максимальное
+// - Среднее
+const arrayNumbers = [0, 1, 2, 10, 4, 5, 6];
+let minNumber = 0;
+let maxNumber = 0;
+let midNumber = 0;
+for (const number of arrayNumbers) {
+  if (minNumber > number) {
+    minNumber = number;
   }
+  if (maxNumber < number) {
+    maxNumber = number;
+  }
+  midNumber += number / arrayNumbers.length;
 }
-console.log(positivNumber);
-console.log(negativNumber);
+console.log(minNumber);
+console.log(maxNumber);
+console.log(midNumber);
