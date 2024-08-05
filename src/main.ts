@@ -3,17 +3,13 @@
 // - Минимальное
 // - Максимальное
 // - Среднее
-const arrayNumbers = [0, 1, 2, 10, 4, 5, 6];
-let minNumber = 0;
-let maxNumber = 0;
+const arrayNumbers = [1, 2, 100];
+let minNumber;
+let maxNumber;
 let midNumber = 0;
 for (const number of arrayNumbers) {
-  if (minNumber > number) {
-    minNumber = number;
-  }
-  if (maxNumber < number) {
-    maxNumber = number;
-  }
+  minNumber = Math.min.apply(null, arrayNumbers);
+  maxNumber = Math.max.apply(null, arrayNumbers);
   midNumber += number / arrayNumbers.length;
 }
 console.log(minNumber);
