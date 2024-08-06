@@ -1,8 +1,7 @@
-// Дан объект, необходимо каждое его поле, содержащее число, увеличить на 20%
+// Дан объект, выведите все его ключи, одной строкой, через запятую
 const person = { age: 10, name: '', child: 'Max' };
+let word = '';
 for (const key in person) {
-  if (typeof person[key] === 'number') {
-    person[key] *= 1.2;
-  }
+  word += key + ',';
 }
-console.log(person);
+console.log(word);
