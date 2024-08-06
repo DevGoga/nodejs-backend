@@ -1,7 +1,11 @@
-// Дан объект, выведите все его ключи, одной строкой, через запятую
+// Дан объект. Необходимо сформировать два массива - в один записать все ключи объекта,
+// в другой все его значения. Запрещено использовать конструкции Object.keys() и Object.values()
 const person = { age: 10, name: '', child: 'Max' };
-let word = '';
+const arrayKeys = [];
+const arrayValues = [];
 for (const key in person) {
-  word += key + ',';
+  arrayKeys.push(key);
+  arrayValues.push(person[key]);
 }
-console.log(word);
+console.log(arrayKeys);
+console.log(arrayValues);
