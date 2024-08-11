@@ -1,14 +1,13 @@
-// Напишите функцию, которая принимает на вход слово, а в ответ выдает два массива - массив букв, и массив цифр,
-// которые встречаются в этом слове
-const funcArray = (words: string) => {
-  const numberArray = [];
-  const stringArray = [];
-  for (const word of words) {
-    if (isNaN(Number(word))) {
-      stringArray.push(word);
-    } else numberArray.push(word);
+// Напишите функцию, которая на вход принимает два параметра - массив строк и число.
+// И в ответ выдает отфильтрованный массив, в котором только те строки из первоначального массива,
+// у которых длина короче, чем переданное число
+const funcArray = (wordArray: string[], number: number) => {
+  const sortArray = [];
+  for (let i = 0; i < wordArray.length; i++) {
+    if (wordArray[i].length < number) {
+      sortArray.push(wordArray[i]);
+    }
   }
-  return `Массив букв: ${stringArray}
-Массив чисел: ${numberArray}`;
+  return sortArray;
 };
-console.log(funcArray('goga123'));
+console.log(funcArray(['goga', 'rusla', 'slavemba', 'elpaevich'], 5));
