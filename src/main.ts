@@ -15,19 +15,22 @@ type User = {
   nickname?: string | null;
   age: number;
 };
-
 const user1: User = {
   age: 15,
 };
 const user2: User = {
-  nickname: '',
-  age: 35,
+  nickname: null,
+  age: 10,
 };
 const user3: User = {
-  nickname: null,
-  age: 40,
+  nickname: '',
+  age: 25,
 };
 const user4: User = {
   nickname: 'Grif',
-  age: 12,
+  age: 13,
 };
+console.log((user1.nickname ?? 'не обнаружено') || 'пусто');
+console.log((user2.nickname ?? 'не обнаружено') || 'пусто');
+console.log((user3.nickname ?? 'не обнаружено') || 'пусто');
+console.log((user4.nickname ?? 'не обнаружено') || 'пусто');
