@@ -1,13 +1,9 @@
-// Напишите функцию, которая на вход принимает два параметра - массив строк и число.
-// И в ответ выдает отфильтрованный массив, в котором только те строки из первоначального массива,
-// у которых длина короче, чем переданное число
-const funcArray = (wordArray: string[], number: number) => {
-  const sortArray = [];
-  for (let i = 0; i < wordArray.length; i++) {
-    if (wordArray[i].length < number) {
-      sortArray.push(wordArray[i]);
-    }
+// Напишите функцию, которая на вход принимает массив чисел, и выводит в консоль наибольший делитель для каждого числа.
+const funcArray = (numberArray: number[]) => {
+  const splitterArray = [];
+  for (let i = 0; i < numberArray.length; i++) {
+    splitterArray.push(numberArray[i] / 2);
   }
-  return sortArray;
+  return splitterArray;
 };
-console.log(funcArray(['goga', 'rusla', 'slavemba', 'elpaevich'], 5));
+console.log(funcArray([10, 12, 20]));
