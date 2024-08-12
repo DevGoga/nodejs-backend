@@ -1,9 +1,23 @@
-// Напишите функцию, которая на вход принимает массив чисел, и выводит в консоль наибольший делитель для каждого числа.
-const funcArray = (numberArray: number[]) => {
-  const splitterArray = [];
-  for (let i = 0; i < numberArray.length; i++) {
-    splitterArray.push(numberArray[i] / 2);
-  }
-  return splitterArray;
+// Напишите функцию, которая на вход получает объект и выдает сумму значений его полей.
+// Гарантируется, что в объекте будут содержаться только числа.
+type ObjNum = {
+  num1: any;
+  num2: any;
+  num3: any;
 };
-console.log(funcArray([10, 12, 20]));
+const numbers = {
+  num1: 123,
+  num2: undefined,
+  num3: 3,
+};
+let sum = 0;
+const funcSum = (obj: ObjNum) => {
+  for (const value of Object.values(obj)) {
+    if (typeof value === 'number') {
+      sum += value;
+    }
+  }
+  return sum;
+};
+
+console.log(funcSum(numbers));
