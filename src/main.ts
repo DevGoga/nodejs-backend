@@ -1,22 +1,15 @@
-// Напишите функцию, которая принимает на вход массив объектов. Ищет объект, у которого значение поля name равно Stas
-// и возвращает значение поля age  у этого объекта. Если такого объекта нет, необходимо вернуть “Объект не найден",
-// если объект найден, но поле age содержит значения null или undefined, необходимо вернуть “Возраста нет”.
-
-type ArrayObj = [
-  person1: { name?: string; age?: number },
-  person2: { name?: string; age?: number },
-  person3: { name?: string; age?: number },
-];
-const user: ArrayObj = [{ name: 'Stas' }, { age: 10 }, { name: 'Stas', age: 10 }];
-const funcSum = (obj: any) => {
-  for (let i = 0, l = obj.length; i < l; i++) {
-    if (obj[i].name && obj[i].age) {
-      return 'Возраста нет';
-    } else if (obj[i].name) {
-      return 'Объект не найден';
-    } else if (obj[i].name === 'Stas') {
-      return obj[i].age;
+// Напишите функцию, которая на вход принимает массив чисел, и выводит в консоль наибольший делитель для каждого числа.
+const funcArray = (numberArray: number[]) => {
+  const result = [];
+  let count = 0;
+  for (const number of numberArray) {
+    for (let i = 1; i < number; i++) {
+      if (number % i === 0) {
+        count = i;
+      }
     }
+    result.push(count);
   }
+  return result;
 };
-console.log(funcSum(user));
+console.log(funcArray([10, 12, 21]));
