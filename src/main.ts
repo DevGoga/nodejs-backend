@@ -5,7 +5,8 @@ const calltaxi = (open: any, close: any) => {
   const result = Math.random();
   if (result < 0.5) {
     return open();
-  } else return close();
+  }
+  return close();
 };
 const showAccess = () => {
   console.log('Showing access...');
