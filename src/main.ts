@@ -1,16 +1,10 @@
-// Напишите функцию, которая на вход принимает массив чисел, и выводит в консоль наибольший делитель для каждого числа.
-const funcArray = (numberArray: number[]) => {
-  const result = [];
-  let count = 0;
-  for (const number of numberArray) {
-    for (let i = 1; i < number; i++) {
-      if (number % i === 0) {
-        count = i;
-      }
-    }
-    result.push(count);
-  }
-  return result;
+// Напишите любую осмысленную функцию, которая на вход принимает два любых осмысленных колбэка.
+// Внутри с помощью Math.random рандомит результат “успех/неуспех”,
+// и в зависимости от этого вызывает один или другой колбэк.
+const callback = (a: number, b: number) => {
+  const result = Math.random();
+  if (result < 0.5) {
+    return a;
+  } else return b;
 };
-console.log(funcArray([10, 12, 21]));
-// ура заработал гитхаб
+console.log(callback(10, 5));
