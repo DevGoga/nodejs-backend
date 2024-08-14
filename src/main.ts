@@ -13,3 +13,4 @@ const funcArray = (numberArray: number[]) => {
   return result;
 };
 console.log(funcArray([10, 12, 21]));
+// ура заработал гитхаб
