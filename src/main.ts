@@ -1,17 +1,11 @@
-// Оставьте в массиве только совершеннолетних пользователей (используйте filter)
-type User = {
-  name: string;
-  age: number;
-};
-
-const users: User[] = [
-  { name: 'Пользователь-1', age: 1 },
-  { name: 'Пользователь-21', age: 21 },
-  { name: 'Пользователь-30', age: 30 },
-  { name: 'Пользователь-14', age: 14 },
-  { name: 'Пользователь-18', age: 18 },
-  { name: 'Пользователь--1', age: -1 },
-  { name: 'Пользователь-1', age: 1 },
+// Что выведет программа ниже?
+const storage = [
+  { age: 10, name: 'first' },
+  { age: 20, name: 'second' },
+  { age: 30, name: 'third' },
+  { age: 40, name: 'fourth' },
 ];
-const convert = users.filter((user: User) => user.age >= 18);
-console.log(convert);
+
+const smalls = storage.map((s) => s.age > 20);
+
+console.log(smalls); // false, false, true, true
