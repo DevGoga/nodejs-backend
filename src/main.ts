@@ -1,49 +1,22 @@
-// Используя reduce, напишите функцию, которая превращает массив в объект. Считает количество
-// упоминаний первого числа и сумму значений для этого числа.
-const values = [
-  [1, 100],
-  [2, 200],
-  [3, 300],
-  [1, 2],
-  [3, 400],
-  [4, 500],
-  [1, 99],
+// Доработайте функцию умного поиска, чтобы она работала как ожидается. Типы any пока оставьте.
+
+const storage = [
+  { age: 10, name: 'first' },
+  { age: 20, name: 'second' },
+  { age: 30, name: 'third' },
+  { age: 40, name: 'fourth' },
 ];
 
-let count1 = 0;
-let count2 = 0;
-let count3 = 0;
-let count4 = 0;
+const smartSearch = (arr: any[], property: any, value: any) => {
+  return arr.find((person) => person[property] === value || person[property] === value);
+};
 
-let sum1 = 0;
-let sum2 = 0;
-let sum3 = 0;
-let sum4 = 0;
+const person1 = smartSearch(storage, 'age', 30);
+// { age: 30, name: 'third' }
 
-const result = values.reduce((acc, cur) => {
-  const key = `${cur[0]}`;
-  if (cur[0] === 1) {
-    count1++;
-    sum1 += cur[1];
-    acc[key] = { count: count1, sum: sum1 };
-  }
-  if (cur[0] === 2) {
-    count2++;
-    sum2 += cur[1];
-    acc[key] = { count: count2, sum: sum2 };
-  }
-  if (cur[0] === 3) {
-    count3++;
-    sum3 += cur[1];
-    acc[key] = { count: count3, sum: sum3 };
-  }
-  if (cur[0] === 4) {
-    count4++;
-    sum4 += cur[1];
-    acc[key] = { count: count4, sum: sum4 };
-  }
+const person2 = smartSearch(storage, 'age', 10);
+// { age: 10, name: 'first' }
 
-  return acc;
-}, {} as any);
-
-console.log(result);
+const person3 = smartSearch(storage, 'name', 'second');
+// { age: 20, name: 'second' }
+console.log(person1, person2, person3);
