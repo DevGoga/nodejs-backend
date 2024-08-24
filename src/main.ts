@@ -1,4 +1,4 @@
-// Что выведет программа ниже?
+// Доработайте код, используя метод map , чтобы он работал как ожидается:
 const storage = [
   { age: 10, name: 'first' },
   { age: 20, name: 'second' },
@@ -6,6 +6,8 @@ const storage = [
   { age: 40, name: 'fourth' },
 ];
 
-const smalls = storage.map((s) => s.age > 20);
+const storage2 = storage.map((value) => {
+  return { age: value.age, name: value.name, reversed: true };
+});
 
-console.log(smalls); // false, false, true, true
+console.log(storage2);
