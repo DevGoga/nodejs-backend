@@ -4,9 +4,9 @@
 // - Создаёт массив только с уникальными значениями
 // - Создает обратный массив (у которого обратная последовательность элемента)
 // - Превращает массив в объект:
-const values = [-1, 'rusla', 15, 'slava', 40];
-const myObject = values.reduce((acc: any[], cur: number | string, idx: number) => {
-  if (typeof cur === 'string') {
+const values = [1, 10, 10, 40, 40];
+const myObject = values.reduce((acc: number[], cur: number, idx: number) => {
+  if (!acc.includes(cur)) {
     acc.push(cur);
   }
   return acc;
