@@ -4,10 +4,10 @@
 // - Создаёт массив только с уникальными значениями
 // - Создает обратный массив (у которого обратная последовательность элемента)
 // - Превращает массив в объект:
-const values = [1, 10, 10, 40, 40];
-const myObject = values.reduce((acc: number[], cur: number, idx: number) => {
-  acc.push(cur);
-  acc.sort((a, b) => (a < b ? 1 : -1));
+const values = [10, 'just_name', true];
+const myObject = values.reduce((acc, cur, idx) => {
+  const key = `key-${idx}`;
+  acc[key] = cur;
   return acc;
-}, []);
+}, {} as any);
 console.log(myObject);
