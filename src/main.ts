@@ -1,13 +1,15 @@
-// Доработайте код, используя метод map , чтобы он работал как ожидается:
-const storage = [
-  { age: 10, name: 'first' },
-  { age: 20, name: 'second' },
-  { age: 30, name: 'third' },
-  { age: 40, name: 'fourth' },
-];
+// Используя reduce, напишите функцию, которая (каждый пункт отдельная функция):
+// - Фильтрует только положительные числа
+// - Фильтрует только строки
+// - Создаёт массив только с уникальными значениями
+// - Создает обратный массив (у которого обратная последовательность элемента)
+// - Превращает массив в объект:
+const values = [-1, 10, 15, 39, 40];
+const myObject = values.reduce((acc: number[], cur: number, idx: number) => {
+  if (cur > 0) {
+    acc.push(cur);
+  }
+  return acc;
+}, []);
 
-const storage2 = storage.map((value) => {
-  return { age: value.age, name: value.name, reversed: true };
-});
-
-console.log(storage2);
+console.log(myObject);
