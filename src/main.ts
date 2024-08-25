@@ -1,9 +1,8 @@
 // Напишите функцию mergeToNewObject, которая будет производить слияние двух объектов и возвращать
 // новый объект. Используйте оператор ...
-const mergeToNewObject = (a: any, b: any) => {
-  const { ...otherA } = a;
-  const { ...otherB } = b;
-  return { ...otherA, ...otherB };
+type Obj = Record<string, number>;
+const mergeToNewObject = (a: Obj, b: Obj) => {
+  return { ...a, ...b };
 };
 
 const obj1 = { a: 10, b: 100, c: 1 };
