@@ -1,15 +1,24 @@
-enum Colors {
-  red = 'red',
-  black = 'black',
-}
-
-const mapper = (value: string): Colors => {
-  const colorsMapper = Object.values(Colors).find((color) => color === value);
-  return colorsMapper || Colors.red;
+type Person = {
+  name: string;
 };
 
-const color1: Colors = mapper('red'); // red, вернулось Colors.red, так как есть совпадение
-const color2: Colors = mapper('black'); // black, вернулось Colors.black, так как есть совпадение
-const color3: Colors = mapper('it is not a color'); // red, вернулось Colors.red "по умолчанию"
+type Paginated<T = unknown> = {
+  total: number;
+  limit: number;
+  offset: number;
+  items: T[];
+};
 
-console.log(color1, color2, color3);
+const responseOfPersons: Paginated<Person> = {
+  total: 10,
+  limit: 5,
+  offset: 0,
+  items: [{ name: 'P1' }],
+};
+
+const responseOfSomething: Paginated = {
+  total: 10,
+  limit: 5,
+  offset: 0,
+  items: [],
+};
