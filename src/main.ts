@@ -1,54 +1,16 @@
-type A = {
-  first: string;
-  second: {
-    third: string;
-    fourth?: string;
-    fifth: {
-      sixth?: {
-        tenth: {
-          twelfth?: {
-            thirteenth: {
-              fifteenth: {
-                sixteenth?: {
-                  last: 'Достучались';
-                };
-              };
-            };
-            fourteenth: string;
-          };
-        };
-        eleventh: string;
-      };
-      seventh: number;
-      eight: string;
-    };
-  };
+const countTypes = (...args: any[]): Record<string, number> => {
+  return args.reduce((acc, cur) => {
+    const key = typeof cur;
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
 };
 
-const a: A = {
-  first: 'z',
-  second: {
-    third: 'f',
-    fourth: 'a',
-    fifth: {
-      sixth: {
-        tenth: {
-          twelfth: {
-            thirteenth: {
-              fifteenth: {
-                sixteenth: {
-                  last: 'Достучались',
-                },
-              },
-            },
-            fourteenth: 's',
-          },
-        },
-        eleventh: 'kk',
-      },
-      seventh: 8,
-      eight: 'b',
-    },
-  },
-};
-console.log(a.second.fifth.sixth?.tenth.twelfth?.thirteenth.fifteenth.sixteenth?.last);
+// Просто пустая функция, чтобы её тоже передать как аргумент в countTypes
+const func = () => {};
+console.log(
+  countTypes(3, true, 'a', 1, {}, func, 4, [], undefined, false, 0, undefined, func, {}, ''),
+);
+
+// Ожидаемый вывод:
+// { number: 4, boolean: 2, string: 2, object: 3, function: 2, undefined: 2 }
