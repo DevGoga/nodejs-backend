@@ -1,20 +1,26 @@
-const getValue = <T>(obj1: T, obj2: T, key: keyof T) => {
-  return [obj1[key], obj2[key]];
+type User = {
+  name: string;
+  surname: string;
+  faaang: string;
+  x: string;
 };
 
-const [z, x] = getValue({ name: 'z' }, { name: 'x' }, 'name');
-console.log(z.toUpperCase(), x.toLowerCase()); // Z X
+const user: User = {
+  name: 'aaabcdeeeef',
+  surname: 'hhfooodgeeeerg',
+  faaang: 'ffaanngg',
+  x: 'xxxxxxxxxxxxxxxxxxxx',
+};
+const count = 0;
+const encode = (value: User) => {
+  const object = JSON.stringify(value);
+  for (const key of object) {
+    console.log(key ? object[count] : 0);
+  }
+  return object;
+};
 
-const [a, b] = getValue({ a: 10, b: 20 }, { a: 11, c: 20 }, 'a');
-console.log(a * 1.1, b - 3); // 11 8
+const encoded: string = encode(user);
 
-const [one, xxx] = getValue({ x: 1 }, { x: 'xxx' }, 'x');
-console.log(one, xxx); // 1 xxx
-
-console.log(one.toUpperCase()); // Ошибка
-console.log(xxx * 1); // Ошибка
-
-getValue({}, {}, ''); // Ошибка
-getValue({ a: 1, b: 2 }, {}, ''); // Ошибка
-getValue({ a: 1, b: 2 }, { c: 1, d: 3 }, 'a'); // Ошибка
-getValue({ a: 1, b: 2 }, { c: 1, d: 3 }, 'c'); // Ошибка
+console.log(encoded);
+// Строка вида "{"name": "a3bcde4f", "surname": "h2fo3dge4rg", "fa3ng": "f2a2n2g2", "x": "x20"}"
