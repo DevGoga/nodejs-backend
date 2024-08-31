@@ -1,29 +1,20 @@
-const getValue = <T>(obj: T, key: keyof T) => {
-  return obj[key];
+const getValue = <T1, T2>(obj1: T1, obj2: T2, key: keyof (T1 | T2)) => {
+  return [obj1[key], obj2[key]];
 };
 
-const a = { id: 1, name: 's' };
+const [z, x] = getValue({ name: 'z' }, { name: 'x' }, 'name');
+console.log(z.toUpperCase(), x.toLowerCase()); // Z X
 
-console.log(getValue(a, 'id')); // 1
-console.log(getValue(a, 'name')); // 2
-console.log(getValue(a, 'key')); // Ошибка! Ключа key нет в { id: number, name: string };
+const [a, b] = getValue({ a: 10, b: 20 }, { a: 11, c: 20 }, 'a');
+console.log(a * 1.1, b - 3); // 11 8
 
-console.log(getValue({}, 'age')); // Ошибка! Ключа age нет в {}
+const [one, xxx] = getValue({ x: 1 }, { x: 'xxx' }, 'x');
+console.log(one, xxx); // 1 xxx
 
-const b = { email: 'ex' };
-console.log(getValue(b, 'email')); // ex
-console.log(getValue(b, '')); // Ошибка! Ключа '' нет в { email: string }
+console.log(one.toUpperCase()); // Ошибка
+console.log(xxx * 1); // Ошибка
 
-console.log(getValue({ ...a, x: 10 }, 'x')); // 10
-console.log(getValue({ ...a, x: 10 }, 'name')); // s
-console.log(getValue({ ...a, x: 10 }, 'id')); // 1
-console.log(getValue({ ...a, x: 10 }, 's')); // Ошибка! Ключа s нет в { id: number, name: string, x: number }
-
-console.log(getValue({ ...b, ...a }, 'email')); // ex
-
-const checkNumber: number = getValue({ age: 1 }, 'age');
-const checkBoolean: boolean = getValue({ a: true }, 'a');
-const checkNull: null = getValue({ x: null }, 'x');
-
-console.log(getValue({ a: 'str' }, 'a').toUpperCase()); // STR
-console.log(getValue({ a: 10 }, 'a') ** 2); // 100
+getValue({}, {}, ''); // Ошибка
+getValue({ a: 1, b: 2 }, {}, ''); // Ошибка
+getValue({ a: 1, b: 2 }, { c: 1, d: 3 }, 'a'); // Ошибка
+getValue({ a: 1, b: 2 }, { c: 1, d: 3 }, 'c'); // Ошибка
