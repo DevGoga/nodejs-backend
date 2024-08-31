@@ -1,12 +1,10 @@
 type Person = {
   name: string;
+  age: number;
+  nike: string;
+  photo: string;
 };
 
-type WithId<T> = T & {
-  id: number;
-};
+type First = Partial<Person>;
 
-const p: WithId<Person> = {
-  id: 1,
-  name: 'name',
-};
+type Second = Omit<Readonly<Person>, 'photo'>;
