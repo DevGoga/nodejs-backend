@@ -1,20 +1,57 @@
-const getValue = <T1, T2>(obj1: T1, obj2: T2, key: keyof (T1 | T2)) => {
-  return [obj1[key], obj2[key]];
+type User = {
+  name: string;
+  surname: string;
+  faaang: string;
+  x: string;
 };
 
-const [z, x] = getValue({ name: 'z' }, { name: 'x' }, 'name');
-console.log(z.toUpperCase(), x.toLowerCase()); // Z X
+const user: User = {
+  name: 'aaabcdeeeef',
+  surname: 'hhfooodgeeeerg',
+  faaang: 'ffaanngg',
+  x: 'xxxxxxxxxxxxxxxxxxxx',
+};
 
-const [a, b] = getValue({ a: 10, b: 20 }, { a: 11, c: 20 }, 'a');
-console.log(a * 1.1, b - 3); // 11 8
+const encode = <T>(decoded: T) => {
+  const object = JSON.stringify(decoded);
+  let count = 0;
+  let result = '';
+  for (let i = 0; i < object.length; i++) {
+    if (object[i] === object[i + 1]) {
+      count++;
+      continue;
+    }
+    result += object[i];
+    if (count > 1) {
+      result += count;
+    }
+    count = 1;
+  }
+  return result;
+};
 
-const [one, xxx] = getValue({ x: 1 }, { x: 'xxx' }, 'x');
-console.log(one, xxx); // 1 xxx
+const encoded: string = encode(user);
 
-console.log(one.toUpperCase()); // Ошибка
-console.log(xxx * 1); // Ошибка
+console.log(encoded);
+// Строка вида "{"name": "a3bcde4f", "surname": "h2fo3dge4rg", "fa3ng": "f2a2n2g2", "x": "x20"}"
+const decode = <T>(encoded: string): T => {
+  let word = '';
+  let count = '';
 
-getValue({}, {}, ''); // Ошибка
-getValue({ a: 1, b: 2 }, {}, ''); // Ошибка
-getValue({ a: 1, b: 2 }, { c: 1, d: 3 }, 'a'); // Ошибка
-getValue({ a: 1, b: 2 }, { c: 1, d: 3 }, 'c'); // Ошибка
+  for (const char of encoded) {
+    if (!isNaN(Number(char))) {
+      count += char;
+      continue;
+    }
+    if (count) {
+      word += word[word.length - 1].repeat(Number(count));
+      count = '';
+    }
+    word += char;
+  }
+
+  return JSON.parse(word);
+};
+const decoded: User = decode<User>(encoded);
+
+console.log(decoded.name, decoded.surname, decoded.faaang, decoded.x);
