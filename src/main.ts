@@ -1,24 +1,19 @@
-export const generateRandomValue = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
+class CustomWorker {
+  constructor(
+    public name: string,
+    public surname: string,
+    public rate: number,
+    public days: number,
+  ) {}
+  getSalary = () => {
+    return this.rate * this.days;
+  };
+}
 
-export const getManyRandomItems = <T>(items: T[], count: number): T[] => {
-  const arr: T[] = [];
-  for (let i = 0; i < count; i++) {
-    arr.push(getOneRandomItem(items));
-  }
-  return arr;
-};
+const worker = new CustomWorker('Иван', 'Иванов', 10, 31);
 
-export const getOneRandomItem = <T>(items: T[]): T => {
-  return items[generateRandomValue(0, items.length)];
-};
-
-const words = ['alpha', 'bravo', 'charlie', 'delta', 'echo', 'foxtrot'];
-const [first, second] = getManyRandomItems(words, 2);
-console.log(first.toUpperCase()); // first должен подсвечиваться типом string
-console.log(second.toUpperCase()); // second должен подсвечиваться типом string
-
-const numbers = [1, 2, 3, 4, 5, 6];
-const [digit] = getManyRandomItems(numbers, 1);
-console.log(digit * 100); // digit должен подсвечиваться типом number
+console.log(worker.name); //выведет 'Иван'
+console.log(worker.surname); //выведет 'Иванов'
+console.log(worker.rate); //выведет 10
+console.log(worker.days); //выведет 31
+console.log(worker.getSalary()); //выведет 310 - то есть 10*31
