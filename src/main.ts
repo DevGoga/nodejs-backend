@@ -1,19 +1,19 @@
-class CustomWorker {
-  constructor(
-    public name: string,
-    public surname: string,
-    public rate: number,
-    public days: number,
-  ) {}
-  getSalary = () => {
-    return this.rate * this.days;
-  };
+class Instrument {
+  constructor(readonly type: string) {}
 }
 
-const worker = new CustomWorker('Иван', 'Иванов', 10, 31);
+class Builder {
+  constructor(
+    readonly name: string,
+    readonly instrument: Instrument,
+  ) {}
+}
 
-console.log(worker.name); //выведет 'Иван'
-console.log(worker.surname); //выведет 'Иванов'
-console.log(worker.rate); //выведет 10
-console.log(worker.days); //выведет 31
-console.log(worker.getSalary()); //выведет 310 - то есть 10*31
+const hammer = new Instrument('hammer');
+
+const builder1 = new Builder('Builder', hammer);
+const builder2 = new Builder('Builder', hammer);
+
+console.log(builder1 === builder2); // выводит false, так как при сравнивании обьектов будет false
+console.log(builder1.instrument === builder2.instrument); // выведет true, так как мы обращаемся  к инструменту билдеров
+// и будет hamer = hamer , это как с обьектами, когда вызываешь, допустим, name.age = name.age и при этом обьект у тебя const name = {age: 10}
