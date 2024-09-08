@@ -1,19 +1,36 @@
-class Instrument {
-  constructor(readonly type: string) {}
-}
+import dayjs from 'dayjs';
 
-class Builder {
+class Person {
   constructor(
-    readonly name: string,
-    readonly instrument: Instrument,
+    public name: string,
+    public surname: string,
   ) {}
+
+  getFullName() {
+    return this.name;
+  }
 }
 
-const hammer = new Instrument('hammer');
+class Student extends Person {
+  constructor(
+    public name: string,
+    public surname: string,
+    public year: number,
+  ) {
+    super(name, surname);
+  }
+  getCourse() {
+    return dayjs().year() - this.year;
+  }
+  getFullName(): string {
+    return `${super.getFullName()} ${this.surname}`;
+  }
+}
 
-const builder1 = new Builder('Builder', hammer);
-const builder2 = new Builder('Builder', hammer);
+const student = new Student('Иван', 'Иванов', 2020);
 
-console.log(builder1 === builder2); // выводит false, так как при сравнивании обьектов будет false
-console.log(builder1.instrument === builder2.instrument); // выведет true, так как мы обращаемся  к инструменту билдеров
-// и будет hamer = hamer , это как с обьектами, когда вызываешь, допустим, name.age = name.age и при этом обьект у тебя const name = {age: 10}
+console.log(student.name); //выведет 'Иван'
+console.log(student.surname); //выведет 'Иванов'
+console.log(student.getFullName()); //выведет 'Иван Иванов'
+console.log(student.year); //выведет 2020
+console.log(student.getCourse()); //выведет 4 - четвертый курс, так как текущий год 2024, а дата поступления 2020
