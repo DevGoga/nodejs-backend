@@ -1,48 +1,8 @@
-class Animal {
-  public type = 'animal';
-}
+const uniq = <T>(arr: T[]) => {
+  return Array.from(new Set(arr));
+};
+const arr = [1, 1, 2, 3, 3, 4, 6];
+const uniques = uniq(arr);
 
-export class Cat extends Animal {
-  constructor() {
-    super();
-  }
-  sayMeow() {
-    return 'meow';
-  }
-}
-
-export class Dog extends Animal {
-  constructor() {
-    super();
-  }
-  sayWoof() {
-    return 'woof';
-  }
-}
-
-const cat = new Cat();
-const dog = new Dog();
-
-console.log(cat.type);
-console.log(cat.sayMeow());
-
-console.log(dog.type);
-console.log(dog.sayWoof());
-
-/*
-Текущий вывод:
-undefined
-meow
-undefined
-undefined
-woof
-undefined
- */
-
-/*
-Ожидаемый вывод:
-animal
-meow
-animal
-woof
- */
+console.log(uniques);
+// [1, 2, 3, 4, 6]
