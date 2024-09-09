@@ -1,8 +1,6 @@
-const uniq = <T>(arr: T[]) => {
-  return Array.from(new Set(arr));
-};
-const arr = [1, 1, 2, 3, 3, 4, 6];
-const uniques = uniq(arr);
+import express from 'express';
 
-console.log(uniques);
-// [1, 2, 3, 4, 6]
+const server = express();
+
+const port = 200;
+server.listen(port);
