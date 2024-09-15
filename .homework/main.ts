@@ -1,4 +1,4 @@
-type DeepString <T> = {
+type DeepString <T extends object> = {
   [key in keyof T]: T[key] extends object ? DeepString<T[key]> : string | undefined
 };
 
