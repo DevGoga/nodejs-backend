@@ -1,5 +1,5 @@
-type DeepPartial1 <T extends object> = {
-  [key in keyof T]?: T[key] extends object ? DeepPartial1<T[key]> : T[key]
+type DeepRequired <T extends object> = {
+  [key in keyof T]-?: T[key] extends object ? DeepRequired<T[key]> : T[key]
 };
 
 type Profile = {
@@ -11,15 +11,10 @@ type Profile = {
     restoreKey: number;
   };
   a: {
-    b: {
-      c: {
-        d: number;
-      };
-    };
+    email: string;
+    password: string;
   };
 };
 
-type A = DeepPartial1<Profile>;
-const a: A = {};
-const b: A = { a: {} };
-const c: A = { a: { b: { c: {} } } };
+type A = DeepRequired<Profile>;
+const a: A = {id: 10, email: 'goga@mail.ru', private: { password: '123', secretKey: '123', restoreKey: 1 }, a: {email: 'giga@mail.ru', password: '123'}};
