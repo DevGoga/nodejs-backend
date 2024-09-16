@@ -1,36 +1,23 @@
-type Wrapper <T> = {value: T}
-
-type User = { id: number; name: string };
-
-type DeepWrapper<T> = {
-  [K in keyof T]: T[K] extends object ? DeepWrapper <T[K]> : Wrapper<T[K]>;
+type ChangePropertyType<T extends object, K extends keyof T, N> = {
+    [Key in keyof T]: Key extends K ? N : T[Key];
 }
 
-type Profile = {
+type User = {
   id: number;
   name: string;
-  data: {
-    age: number;
-    nick: string;
-  };
-  a: {
-    b: { c: boolean };
-  };
 };
 
-const wrappedUser: Wrapper<User> = {
-  value: {
-    id: 1,
-    name: 'n',
-  },
+// В User меняем тип поля 'id' на boolean
+type ChangedUser = ChangePropertyType<User, 'id', boolean>;
+const user: ChangedUser = {
+  id: true,
+  name: 'name',
 };
 
-const deepWrappedProfile: DeepWrapper<Profile> = {
-  id: { value: 1 },
-  name: { value: 'example' },
-  data: {
-    age: { value: 22 },
-    nick: { value: 'nick' },
-  },
-  a: { b: { c: { value: true } } },
+// В {age:number} меняем тип поля 'age' на string
+const obj: ChangePropertyType<{ age: number }, 'age', string> = {
+  age: 'just my age',
 };
+
+type p1 = ChangePropertyType<{}, 'age', string>; // Ошибка! age нет в {}
+type p2 = ChangePropertyType<{ id: number }, 'age', string>; // Ошибка! age нет в { id: number }
