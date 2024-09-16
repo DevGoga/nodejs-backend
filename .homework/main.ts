@@ -1,13 +1,25 @@
-type DeepString <T extends object> = {
-  [key in keyof T]: T[key] extends object ? DeepString<T[key]> : string | undefined
+type DeepPartial1 <T extends object> = {
+  [key in keyof T]?: T[key] extends object ? DeepPartial1<T[key]> : T[key]
 };
 
-type Person = {
-  age: number;
-  name: string;
-  son: { age: 10, name: string };
-}
+type Profile = {
+  id: number;
+  email: string;
+  private: {
+    password: string;
+    secretKey: string;
+    restoreKey: number;
+  };
+  a: {
+    b: {
+      c: {
+        d: number;
+      };
+    };
+  };
+};
 
-type GenericPerson = DeepString<Person>
-
-const obj: GenericPerson = { age: '1', name: 'John Doe', son: {age: '10', name: undefined} }
+type A = DeepPartial1<Profile>;
+const a: A = {};
+const b: A = { a: {} };
+const c: A = { a: { b: { c: {} } } };
