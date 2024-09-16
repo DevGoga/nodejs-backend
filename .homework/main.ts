@@ -1,23 +1,10 @@
-type ChangePropertyType<T extends object, K extends keyof T, N> = {
-    [Key in keyof T]: Key extends K ? N : T[Key];
-}
+type GetTypeByPosition <T extends any[], N extends number> = N extends keyof T? T[N] : undefined
 
-type User = {
-  id: number;
-  name: string;
-};
+type Tuple1 = [string, number];
+const nick: GetTypeByPosition<Tuple1, 0> = 'example'; // string
+const age: GetTypeByPosition<Tuple1, 1> = 200; // number
 
-// В User меняем тип поля 'id' на boolean
-type ChangedUser = ChangePropertyType<User, 'id', boolean>;
-const user: ChangedUser = {
-  id: true,
-  name: 'name',
-};
-
-// В {age:number} меняем тип поля 'age' на string
-const obj: ChangePropertyType<{ age: number }, 'age', string> = {
-  age: 'just my age',
-};
-
-type p1 = ChangePropertyType<{}, 'age', string>; // Ошибка! age нет в {}
-type p2 = ChangePropertyType<{ id: number }, 'age', string>; // Ошибка! age нет в { id: number }
+type Tuple2 = [boolean, string];
+const isReady: GetTypeByPosition<Tuple2, 0> = true; // boolean
+const surname: GetTypeByPosition<Tuple2, 1> = 'example'; // string
+const bad: GetTypeByPosition<Tuple2, 5> = undefined; // undefined
