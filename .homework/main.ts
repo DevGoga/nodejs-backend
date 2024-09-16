@@ -1,20 +1,36 @@
-type DeepRequired <T extends object> = {
-  [key in keyof T]-?: T[key] extends object ? DeepRequired<T[key]> : T[key]
-};
+type Wrapper <T> = {value: T}
+
+type User = { id: number; name: string };
+
+type DeepWrapper<T> = {
+  [K in keyof T]: T[K] extends object ? DeepWrapper <T[K]> : Wrapper<T[K]>;
+}
 
 type Profile = {
   id: number;
-  email: string;
-  private: {
-    password: string;
-    secretKey: string;
-    restoreKey: number;
+  name: string;
+  data: {
+    age: number;
+    nick: string;
   };
   a: {
-    email: string;
-    password: string;
+    b: { c: boolean };
   };
 };
 
-type A = DeepRequired<Profile>;
-const a: A = {id: 10, email: 'goga@mail.ru', private: { password: '123', secretKey: '123', restoreKey: 1 }, a: {email: 'giga@mail.ru', password: '123'}};
+const wrappedUser: Wrapper<User> = {
+  value: {
+    id: 1,
+    name: 'n',
+  },
+};
+
+const deepWrappedProfile: DeepWrapper<Profile> = {
+  id: { value: 1 },
+  name: { value: 'example' },
+  data: {
+    age: { value: 22 },
+    nick: { value: 'nick' },
+  },
+  a: { b: { c: { value: true } } },
+};
