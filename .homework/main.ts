@@ -1,20 +1,12 @@
-// в коде присутствует Promise.allSettled, он также выполняет пораллельно файлы.ю но в отличие от
-// Promise.all он выполняет его вне зависимости от того пришел после статус pending успех или ошибка
-// в данном случаем файлы меняют результат, так как поставлено условие, если таймер меньше 750 мс, то
-// выводит с ошибкой, иначе успех, поэтому файлы могут менятся в зависимости от условия, в момент консоль лог
-// в этих переменных лежит их статус и значение, если это успешный файл , иначе в нем лежит статус и причина
-// если этот файл с ошибкой1
+// в коде присутствует Promise.race , то есть он обходит все файлы и если видит файл время чтение которого быстрее
+// то он начинает логировать и резолвить только его, а другие файлы только логируются
 
 const readFile = (filename: string) => {
   const time = Math.round(Math.random() * 1000) + 500;
 
   return new Promise((resolve, reject) => {
-    console.log(`[${filename}]: Начинаю чтение`);
-
     setTimeout(() => {
-      if (time < 750) {
-        reject(`Ошибка чтения файла ${filename}`);
-      }
+      console.log(`[${filename}]: Начинаю чтение, примерное время чтение будет: ${time}`);
 
       resolve(`Успех. Прочитали ${filename}. Время чтения: ${time}`);
 
@@ -26,15 +18,9 @@ const readFile = (filename: string) => {
 const main = async () => {
   const start = new Date().getTime(); // Сохранит текущее время
 
-  const [file1, file2, file3] = await Promise.allSettled([
-    readFile('file1'),
-    readFile('file2'),
-    readFile('file3'),
-  ]);
+  const file = await Promise.race([readFile('file1'), readFile('file2'), readFile('file3')]);
 
-  console.log(file1);
-  console.log(file2);
-  console.log(file3);
+  console.log(file);
 
   const end = new Date().getTime(); // Сохранит текущее время
 
