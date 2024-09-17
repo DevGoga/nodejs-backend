@@ -1,26 +1,36 @@
-const main = () => {
-  const result = new Promise((resolve, reject) => {
+// вижу, что мы выполняем ассинхроную функцию main в котором записываем сначала текущий таймер
+// после чего по очереди выполняем чтением файлов, но перед этим читается текущий файл
+// после его прочтения мы увидим сколько читался текущий файл и та происхоит для каждого файла
+// после чего сохраняется новое время и мы выводит общее время чтения файлов
+
+const readFile = (filename: string) => {
+  const time = Math.round(Math.random() * 1000) + 500;
+
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve('Привет!');
-    }, 1000);
+      console.log(`[${filename}]: Начинаю чтение`);
+
+      resolve(`Успех. Прочитали ${filename}. Время чтения: ${time}`);
+
+      console.log(`[${filename}]: Закончил чтение`);
+    }, time);
   });
-
-  console.log(result);
 };
-
-main(); // тут он выведет, что result Будет вечно пендинг, как так мы задаем "логирование result" - он синхронный
-// а сам result является ассинхроным, но мы не задаем async await, поэтому он и будет в всегда "pending"
 
 const main = async () => {
-  const result = await new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('Привет!');
-    }, 1000);
-  });
+  const start = new Date().getTime(); // Сохранит текущее время
 
-  console.log(result);
+  const file1 = await readFile('file1');
+  const file2 = await readFile('file2');
+  const file3 = await readFile('file3');
+
+  console.log(file1);
+  console.log(file2);
+  console.log(file3);
+
+  const end = new Date().getTime(); // Сохранит текущее время
+
+  console.log('\nВесь процесс чтения и вывода занял ms:', end - start);
 };
 
-main(); // тут у нас уже есть async/await , а это значит что результат будет логироваться только тогда,
-// когда выполнится ассинхроный результат кода
-
+main();
