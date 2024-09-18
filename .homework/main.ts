@@ -1,11 +1,12 @@
-const main = async () => {
+const timer = 3000;
+
+const sleep = async (time: number) => {
   const promise = await new Promise((resolve, reject) => {
-    const time = 3000;
     setTimeout(() => {
     resolve(`я запустился спустя ${time}ms`);
-    }, 3000);
+    }, time);
   });
   console.log(promise);
 }
 
-main();
+sleep(timer);
