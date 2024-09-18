@@ -1,12 +1,14 @@
 const timer = 3000;
+const file = 'Rusla';
 
-const sleep = async (time: number) => {
+
+const sleep = async (file: string, time: number) => {
   const promise = await new Promise((resolve, reject) => {
     setTimeout(() => {
-    resolve(`я запустился спустя ${time}ms`);
+    resolve(`${file} Я поспал и прошло ${time}ms`);
     }, time);
   });
   console.log(promise);
 }
 
-sleep(timer);
+sleep(file, timer);
