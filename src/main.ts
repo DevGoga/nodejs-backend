@@ -15,6 +15,8 @@ server.get('/admin', (req, res) => {
 server.post('/', (req, res) => {
   console.log('Пришел запрос с методом POST');
   res.send('Hello World!');
+  // в request лежит вся информация о том, кто,откуда запросил, каким методом и вся дальнешая информация
+  // в response чаще всего лежит информация о состоянии обьекта
 });
 
 server.put('/', (req, res) => {
