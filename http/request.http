@@ -15,7 +15,7 @@ GET /posts/234 HTTP/1.1
 Host: jsonplaceholder.typicode.com
 ###
 // Удаление альбом по его id
-DELETE /albums/1 HTTP/1.1
+DELETE /albums?userId=1 HTTP/1.1
 Host: jsonplaceholder.typicode.com
 ###
 // Обновление альбом по его id
