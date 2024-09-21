@@ -3,28 +3,15 @@ import express from 'express';
 const server = express();
 
 const port = 3000;
-server.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
 
-server.get('/admin', (req, res) => {
-  console.log('Пришел запрос с методом GET');
-  res.send('Hello World!');
-});
+server.listen(port);
+server.get('/end', (req, res) => {
+  res.end('ты используешь end!');
+}); // использовал Postman и в ответе он просто отправил данные
 
-server.post('/', (req, res) => {
-  console.log('Пришел запрос с методом POST');
-  res.send('Hello World!');
-  // в request лежит вся информация о том, кто,откуда запросил, каким методом и вся дальнешая информация
-  // в response чаще всего лежит информация о состоянии обьекта
-});
-
-server.put('/', (req, res) => {
-  console.log('Пришел запрос с методом PUT');
-  res.send('Hello World!');
-});
-
-server.delete('/', (req, res) => {
-  console.log('Пришел запрос с методом DELETE');
-  res.send('Hello World!');
-});
+server.get('/send', (req, res) => {
+  res.send('ты используешь send!');
+}); //использовал Postman и в ответе он отправил данные, которые соответсвует типу "text"
+server.get('/json', (req, res) => {
+  res.json('ты используешь json!');
+}); //использовал Postman и в ответе он отправил данные в виде json
