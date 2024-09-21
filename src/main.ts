@@ -1,5 +1,16 @@
-// используя https://www.urldecoder.org/
-// http://gogma/русский.com закодирова, как: http%3A%2F%2Fgogma%2F%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9.com
-// соответственно, http%3A%2F%2Fgogma%2F%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9.com декодировал, как
-// http://gogma/русский.com
-// прочитал punycode
+import express from 'express';
+const server = express();
+const port = 3100;
+
+server.listen(port, () => {
+  return 'Успешно запущен!';
+});
+
+server.use(express.json());
+
+server.post('/payload', (req, res) => {
+  const params = req.params;
+  const query = req.query;
+  const body = req.body;
+  return res.json({ params, query, body });
+});
