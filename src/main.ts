@@ -1,17 +1,16 @@
 import express from 'express';
-
 const server = express();
+const port = 3100;
 
-const port = 3000;
+server.listen(port, () => {
+  return 'Успешно запущен!';
+});
 
-server.listen(port);
-server.get('/end', (req, res) => {
-  res.end('ты используешь end!');
-}); // использовал Postman и в ответе он просто отправил данные
+server.use(express.json());
 
-server.get('/send', (req, res) => {
-  res.send('ты используешь send!');
-}); //использовал Postman и в ответе он отправил данные, которые соответсвует типу "text"
-server.get('/json', (req, res) => {
-  res.json('ты используешь json!');
-}); //использовал Postman и в ответе он отправил данные в виде json
+server.post('/payload', (req, res) => {
+  const params = req.params;
+  const query = req.query;
+  const body = req.body;
+  return res.json({ params, query, body });
+});
