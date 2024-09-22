@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "ts-node src/main.ts",
+    "start": "cls && ts-node src/main.ts",
+    "start:watch": "nodemon src/main.ts",
     "homework": "ts-node .homework/main.ts"
   },
   "author": "",
@@ -25,6 +26,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^3.2.0",
+    "nodemon": "^3.1.7",
     "prettier": "^3.3.3"
   }
 }
