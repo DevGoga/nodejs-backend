@@ -1,16 +1,32 @@
 import express from 'express';
 const server = express();
-const port = 3100;
+const port = 3000;
 
-server.listen(port, () => {
-  return 'Успешно запущен!';
-});
+const usersRouter = express.Router();
+const newsRouter = express.Router();
+const statisticsRouter = express.Router();
 
-server.use(express.json());
+usersRouter.get('', () => {});
+usersRouter.get('/:id', () => {});
+usersRouter.post('/:id', () => {});
+usersRouter.put('/:id', () => {});
 
-server.post('/payload', (req, res) => {
-  const params = req.params;
-  const query = req.query;
-  const body = req.body;
-  return res.json({ params, query, body });
-});
+newsRouter.get('/:id', () => {});
+newsRouter.post('/:id', () => {});
+newsRouter.put('/:id', () => {});
+newsRouter.delete('/:id', () => {});
+
+usersRouter.get('/settings', () => {});
+usersRouter.get('/settings/all', () => {});
+usersRouter.put('/settings/:id', () => {});
+usersRouter.delete('/settings/:id/:subId', () => {});
+
+statisticsRouter.get('/:group/ready-list', () => {});
+statisticsRouter.delete('/:group/ready/:name', () => {});
+statisticsRouter.post('/:group/ready/:name/create', () => {});
+
+server.use('/users', usersRouter);
+server.use('/news', usersRouter);
+server.use('/statistics', statisticsRouter);
+
+server.listen(port);
