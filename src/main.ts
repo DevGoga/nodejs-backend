@@ -44,6 +44,7 @@ settingsRouter.put('/:id', (req, res) => {
 });
 settingsRouter.delete('/:id/:subId', (req, res) => {
   return res.send(`пришло: ${req.params}`);
+
 });
 
 statisticsRouter.get('/:group/ready-list', () => {});
