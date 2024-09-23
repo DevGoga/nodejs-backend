@@ -2,58 +2,77 @@ import express from 'express';
 const server = express();
 const port = 4000;
 
-const usersRouter = express.Router();
-const newsRouter = express.Router();
-const statisticsRouter = express.Router();
-const settingsRouter = express.Router();
+const userRouter = express.Router();
+const taskRouter = express.Router();
 
-usersRouter.get('', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+taskRouter.post('', (req, res) => {
+  res.send('create task');
 });
-usersRouter.get('/:id', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+taskRouter.get('', (req, res) => {
+  res.send('get task');
 });
-usersRouter.post('/:id', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+taskRouter.get('/:id', (req, res) => {
+  res.send('one task');
 });
-usersRouter.put('/:id', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+taskRouter.get('/my/authored', (req, res) => {
+  res.send('get authored');
 });
-
-newsRouter.get('/:id', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+taskRouter.get('/my/assigned', (req, res) => {
+  res.send('get assigned');
 });
-newsRouter.post('/:id', (req, res) => {
-  return res.send(`пришло ${req.params}`);
+taskRouter.put('/:id', (req, res) => {
+  res.send('update task');
 });
-newsRouter.put('/:id', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+taskRouter.delete('/:id', (req, res) => {
+  res.send('delete task');
 });
-newsRouter.delete('/:id', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+taskRouter.post('/:id/time', (req, res) => {
+  res.send('add time in task');
 });
 
-settingsRouter.get('', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+userRouter.get('/login', (req, res) => {
+  res.send('get login');
 });
-settingsRouter.get('/all', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+userRouter.post('/register', (req, res) => {
+  res.send('create new user');
 });
-settingsRouter.put('/:id', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+userRouter.post('/logout', (req, res) => {
+  res.send('exit');
 });
-settingsRouter.delete('/:id/:subId', (req, res) => {
-  return res.send(`пришло: ${req.params}`);
+userRouter.post('/refresh', (req, res) => {
+  res.send('refresh token');
+});
+userRouter.post('/password/restore', (req, res) => {
+  res.send('restore password');
+});
+userRouter.post('/:id/block', (req, res) => {
+  res.send('get block user');
+});
+userRouter.post('/:id/unblock', (req, res) => {
+  res.send('get unblock user');
+});
 
+userRouter.get('', (req, res) => {
+  res.send('list users');
+});
+userRouter.get('/profile', (req, res) => {
+  res.send('your profile');
+});
+userRouter.get('/profile/:id', (req, res) => {
+  res.send('user profile');
+});
+userRouter.get('/profile/telegram-link', (req, res) => {
+  res.send('telegram link');
 });
 
-statisticsRouter.get('/:group/ready-list', () => {});
-statisticsRouter.delete('/:group/ready/:name', () => {});
-statisticsRouter.post('/:group/ready/:name/create', () => {});
+userRouter.put('/profile', (req, res) => {
+  res.send('update profile');
+});
+userRouter.put('/password/change', (req, res) => {
+  res.send('change password');
+});
 
-server.use('/users', usersRouter);
-server.use('/news', usersRouter);
-server.use('/statistics', statisticsRouter);
-server.use('/users/settings', settingsRouter);
+server.use('/user', userRouter);
+server.use('/task', taskRouter);
 
 server.listen(port);
