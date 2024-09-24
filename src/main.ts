@@ -1,5 +1,6 @@
 import express from 'express';
 
+
 import { logRoutes } from './bootstrap';
 
 const server = express();
