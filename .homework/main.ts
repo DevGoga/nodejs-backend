@@ -1,25 +1,27 @@
 import {EventEmitter} from 'node:events'
-class Kitchen extends EventEmitter{
-   cookingPizza() {
-    this.emit('начал приготовление');
-    try {
-      this.emit('создание теста');
-      this.emit('добавление ингридиентов')
-      this.emit('добавить в печь')
-      setTimeout(() => this.emit('пицца готова!'), 3000)
-    }
-    catch(err) {
-      console.error('sorry, i dont understand', err);
-    }
+class Emitter extends EventEmitter {
+  makeBurger() {
+    this.emit('бургер');
+  };
+  makePizza(){
+    this.emit('пицца');
+  }
+  makePasta(){
+    this.emit("паста");
   }
 }
+class Kitchen {
+   cookBurger() {console.log('делаю бургер')};
+   cookPizza() {console.log('делаю пиццу')};
+   cookPasta(){console.log('делаю пасту')};
+}
 const kitchen = new Kitchen();
+const eventEmitter = new Emitter();
 
-kitchen.on('начал приготовление', () => console.log('приготовление началось!'));
-kitchen.on('создание теста', () => console.log('создал тесто!'));
-kitchen.on('добавление ингридиентов', () => console.log('добавил ингридиенты!'));
-kitchen.on('добавить в печь', () => console.log('добавил пиццу в печь!'));
-kitchen.on('пицца готова!', () => console.log('я приготовил пиццу!!!)'));
-kitchen.on('sorry, i dont understand', () => console.log('я хз как готовить :('));
+eventEmitter.on('бургер', () => {kitchen.cookBurger()});
+eventEmitter.on('пицца', () => {kitchen.cookPizza()});
+eventEmitter.on('паста', () => {kitchen.cookPasta()});
 
-kitchen.cookingPizza();
+eventEmitter.makeBurger();
+eventEmitter.makePizza();
+eventEmitter.makePasta();
