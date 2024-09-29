@@ -24,7 +24,7 @@ export const parse = (raw: string, separator: string): WebMaster => {
     nick,
     followers: Number(followers),
     isPro: isPro === 'true',
-    photo,
+    photo: photo === 'null' ? null : photo,
   };
 };
 
