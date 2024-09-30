@@ -1,46 +1,33 @@
-/*
-  Исправьте фрагмент программы, чтобы она работала как ожидается
- */
-
-type WebMaster = {
-  nick: string;
-  followers: number;
-  isPro: boolean;
-  photo: string | null;
+const convert: any = (num: number) => {
+  switch (true) {
+    case num >= 1000:
+      return 'M' + convert(num - 1000);
+    case num >= 900:
+      return 'CM' + convert(num - 900);
+    case num >= 500:
+      return 'D' + convert(num - 500);
+    case num >= 400:
+      return 'CD' + convert(num - 400);
+    case num >= 100:
+      return 'C' + convert(num - 100);
+    case num >= 90:
+      return 'XC' + convert(num - 90);
+    case num >= 50:
+      return 'L' + convert(num - 50);
+    case num >= 40:
+      return 'XL' + convert(num - 40);
+    case num >= 10:
+      return 'X' + convert(num - 10);
+    case num >= 9:
+      return 'IX' + convert(num - 9);
+    case num >= 5:
+      return 'V' + convert(num - 5);
+    case num >= 4:
+      return 'IV' + convert(num - 4);
+    case num >= 1:
+      return 'I' + convert(num - 1);
+    default:
+      return '';
+  }
 };
-
-export const separator = '\t';
-
-export const write = (master: WebMaster, separator: string) => {
-  const { isPro, followers, nick, photo } = master;
-
-  return [nick, followers, isPro, photo].map(String).join(separator);
-};
-
-export const parse = (raw: string, separator: string): WebMaster => {
-  const [nick, followers, isPro, photo] = raw.split(separator);
-
-  return {
-    nick,
-    followers: Number(followers),
-    isPro: isPro === 'true',
-    photo: photo === 'null' ? null : photo,
-  };
-};
-
-const webmaster1: WebMaster = { nick: 'first', followers: 1, isPro: true, photo: null };
-const webmaster2: WebMaster = { nick: 'second', followers: 2, isPro: false, photo: 'img-2' };
-
-const rawWm1 = write(webmaster1, separator);
-const rawWm2 = write(webmaster2, separator);
-
-const parsedWm1 = parse(rawWm1, separator);
-const parsedWm2 = parse(rawWm2, separator);
-
-console.log(parsedWm1);
-// Ожидаемый вывод: { nick: 'first', followers: 1, isPro: true, photo: null }
-// Текущий вывод: { nick: 'first\t1\ttrue\tnull', followers: NaN, isPro: false, photo: undefined }
-
-console.log(parsedWm2);
-// Ожидаемый вывод: { nick: 'second', followers: 2, isPro: false, photo: 'img-2' }
-// Текущий вывод: { nick: 'second\t2\tfalse\timg-2', followers: NaN, isPro: false, photo: undefined }
+console.log(convert(2024));
