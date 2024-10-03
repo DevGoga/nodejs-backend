@@ -4,7 +4,8 @@
   "main": "main.js",
   "scripts": {
     "start": "ts-node src/main.ts",
-    "homework": "ts-node .homework/main.ts"
+    "homework": "ts-node .homework/main.ts",
+    "build": "webpack --mode production"
   },
   "author": "",
   "license": "ISC",
