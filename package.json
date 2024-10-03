@@ -5,7 +5,7 @@
   "scripts": {
     "start": "ts-node src/main.ts",
     "homework": "ts-node .homework/main.ts",
-    "build": "webpack --mode production"
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
