@@ -1,33 +1,30 @@
-const convert: any = (num: number) => {
-  switch (true) {
-    case num >= 1000:
-      return 'M' + convert(num - 1000);
-    case num >= 900:
-      return 'CM' + convert(num - 900);
-    case num >= 500:
-      return 'D' + convert(num - 500);
-    case num >= 400:
-      return 'CD' + convert(num - 400);
-    case num >= 100:
-      return 'C' + convert(num - 100);
-    case num >= 90:
-      return 'XC' + convert(num - 90);
-    case num >= 50:
-      return 'L' + convert(num - 50);
-    case num >= 40:
-      return 'XL' + convert(num - 40);
-    case num >= 10:
-      return 'X' + convert(num - 10);
-    case num >= 9:
-      return 'IX' + convert(num - 9);
-    case num >= 5:
-      return 'V' + convert(num - 5);
-    case num >= 4:
-      return 'IV' + convert(num - 4);
-    case num >= 1:
-      return 'I' + convert(num - 1);
-    default:
-      return '';
+import chalk from 'chalk';
+import EventEmitter from 'node:events';
+class Logger {
+  info(massage: string) {
+    console.log(chalk.blue(massage));
   }
-};
-console.log(convert(2024));
+  success(massage: string) {
+    console.log(chalk.green(massage));
+  }
+}
+class Kitchen extends EventEmitter {
+  constructor(private logger: Logger) {
+    super();
+    this.on('burger', this.makeBurger);
+    this.on('pizza', this.makePizza);
+  }
+  makeBurger() {
+    this.logger.info('Starting burger....');
+    this.logger.success('Burger complete!');
+  }
+  makePizza() {
+    this.logger.info('Starting pizza...');
+    this.logger.success('Pizza complete!');
+  }
+}
+const logger = new Logger();
+const kitchen = new Kitchen(logger);
+
+kitchen.emit('burger');
+kitchen.emit('pizza');
