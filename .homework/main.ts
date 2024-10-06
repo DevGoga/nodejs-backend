@@ -8,23 +8,17 @@ class Logger {
     console.log(chalk.green(massage));
   }
 }
-class Kitchen extends EventEmitter {
-  constructor(private logger: Logger) {
-    super();
-    this.on('burger', this.makeBurger);
-    this.on('pizza', this.makePizza);
-  }
-  makeBurger() {
+class Kitchen {
+  constructor(private readonly logger: Logger) {}
+  makeBurger(id: number, name: string) {
+    console.log(this, id, name);
     this.logger.info('Starting burger....');
     this.logger.success('Burger complete!');
-  }
-  makePizza() {
-    this.logger.info('Starting pizza...');
-    this.logger.success('Pizza complete!');
   }
 }
 const logger = new Logger();
 const kitchen = new Kitchen(logger);
+const orders = new EventEmitter();
 
-kitchen.emit('burger');
-kitchen.emit('pizza');
+orders.on('burger', (id, name) => kitchen.makeBurger.call(kitchen, id, name));
+orders.emit('burger', 1, 'John');
