@@ -1,4 +1,8 @@
+import { plainToInstance } from 'class-transformer';
+import { validateSync } from 'class-validator';
 import express from 'express';
+import { TaskIdDto } from './taskId.dto';
+
 export const taskRouter = express.Router();
 
 taskRouter.post('', (req, res) => {
@@ -8,7 +12,13 @@ taskRouter.get('', (req, res) => {
   res.send('get task');
 });
 taskRouter.get('/:id', (req, res) => {
-  res.send('one task');
+  const dto = plainToInstance(TaskIdDto, req.params);
+  const errors = validateSync(dto);
+  if (errors.length) {
+    throw Error('В валидации есть ошибки!'); // Сюда совать конкретную ошибку, я для скорости просто так воткнул этот текст
+  }
+
+  res.send('Всё ок, валидация прошла, но пока никакой логики нет, поэтому просто ответим ОК!');
 });
 taskRouter.get('/my/authored', (req, res) => {
   res.send('get authored');
