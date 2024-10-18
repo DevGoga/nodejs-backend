@@ -11,9 +11,12 @@ const port = 2000;
 server.use(express.json());
 server.use(logRequestMiddleware);
 server.use(rateLimiter);
+
 server.use('/user', userRouter);
 server.use('/task', taskRouter);
+
 server.use(ErrorHandler);
 
 logRoutes(server);
+
 server.listen(port, () => console.log(`Server started on port ${port}`));
