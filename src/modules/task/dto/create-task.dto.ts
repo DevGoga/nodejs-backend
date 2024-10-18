@@ -1,10 +1,5 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-
-export enum Severity {
-  low = 'low',
-  medium = 'medium',
-  high = 'high',
-}
+import { Severity } from '../task.types';
 
 export class CreateTaskDto {
   @IsString()
