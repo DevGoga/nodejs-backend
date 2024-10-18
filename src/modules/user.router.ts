@@ -6,8 +6,8 @@ import { BadRequestException } from '../errors/bad.request.exception';
 
 export const userRouter = express.Router();
 
-userRouter.get('/login', (req, res) => {
-  const dto = plainToInstance(UserLoginDto, req.params);
+userRouter.post('/login', (req, res) => {
+  const dto = plainToInstance(UserLoginDto, req.body);
   const errors = validateSync(dto);
   if (errors.length) {
     const constraints = errors[0].constraints;

@@ -1,5 +1,5 @@
 import { plainToInstance } from 'class-transformer';
-import { IsIn, IsInt, IsNotEmpty, IsOptional, IsPositive, IsString, Max, validateSync } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsPositive, IsString, Max, validateSync } from 'class-validator';
 import { Request, Response } from 'express';
 
 enum genre {
@@ -26,7 +26,7 @@ export class CreateTaskDto {
 
   @IsOptional()
   @IsString()
-  @IsIn([genre.horror, genre.action, genre.adventure])
+  @IsEnum(genre)
   category = genre.action;
 }
 const taskValidate = (req: Request, res: Response) => {
