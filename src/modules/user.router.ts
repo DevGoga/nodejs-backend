@@ -1,7 +1,7 @@
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
 import express from 'express';
-import { UserLoginDto } from '../dto/userLogin.dto';
+import { UserLoginDto } from '../dto';
 import { BadRequestException } from '../errors/bad.request.exception';
 
 export const userRouter = express.Router();
@@ -20,8 +20,9 @@ userRouter.post('/login', (req, res) => {
     throw new BadRequestException(message);
   }
 
-  res.status(200).json('Login success!');
+  res.status(200).json({ message: 'Login success!' });
 });
+
 userRouter.post('/register', (req, res) => {
   res.send('create new user');
 });

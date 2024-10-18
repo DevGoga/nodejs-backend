@@ -6,12 +6,10 @@ export const logRequestMiddleware = (req: Request, res: Response, next: NextFunc
   const path = req.path;
   const query = req.query;
   const body = req.body;
-  const contentType = req.headers['content-type'];
 
   console.log(`[${currentTime}] ${method} ${path}`);
   console.log('Query:', query);
   console.log('Body:', body);
-  console.log('Content-Type:', contentType);
 
   next();
 };
