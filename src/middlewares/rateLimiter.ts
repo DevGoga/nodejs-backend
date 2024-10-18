@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { NextFunction, Request, Response } from 'express';
 
-const limit = 10;
+const limit = 10000;
 const range = 'minute';
 
 const storage = {
