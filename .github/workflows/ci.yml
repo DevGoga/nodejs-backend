@@ -23,3 +23,6 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+      - name: Run ESLint
+        run: npx eslint src/ --exit-on-fatal-error --max-warnings=0
