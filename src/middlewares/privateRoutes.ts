@@ -5,9 +5,7 @@ export const privateRoutes = (req: Request, res: Response, next: NextFunction) =
 
   if (req.path === '/private' && (req.method === 'PUT' || req.method === 'POST')) {
     console.log(`Доступа нет!`);
-    res.send(
-      'Вы пытаетесь получить доступ к приватному пути или же использовали метод PUT или POST! Это запрещено!',
-    );
+    res.send('Вы пытаетесь получить доступ к приватному пути или же использовали метод PUT или POST! Это запрещено!');
     return;
   }
 
