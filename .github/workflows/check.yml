@@ -24,4 +24,4 @@ jobs:
         run: npm run build
 
       - name: Run ESLint
-        run: npx eslint src/ --exit-on-fatal-error --max-warnings=0
+        run: eslint ./src --max-warnings=0
