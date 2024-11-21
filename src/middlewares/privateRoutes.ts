@@ -9,6 +9,7 @@ export const privateRoutes = (req: Request, res: Response, next: NextFunction) =
     return;
   }
 
+  console.log('test');
   console.log(`Доступ есть! Вызываем следующие обработчики!`);
   next();
 };
