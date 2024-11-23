@@ -1,22 +1,64 @@
-import 'reflect-metadata';
-import express from 'express';
-import { logRoutes } from './bootstrap';
-import { ErrorHandler, logRequestMiddleware, rateLimiter } from './middlewares';
-import { taskRouter, userRouter } from './modules';
+/*
+1. Исправьте вывод программы.
 
-const server = express();
+Ожидаемый вывод:
+Массив: X-0,X-1,X-2,X-3,X-4,X-5,X-6,X-7,X-8,X-9
+Массив: X-9,X-8,X-7,X-6,X-5,X-4,X-3,X-2,X-1,X-0
 
-const port = 2000;
+Текущий вывод:
+Массив: X-0,X-1,X-2,X-3,X-4,X-5,X-6,X-7,X-8,X-9
+Массив: undefined
 
-server.use(express.json());
-server.use(logRequestMiddleware);
-server.use(rateLimiter);
+2. Добавьте новую операцию, которая бы возвращала новый массив, состоящий только из последних 5 элементов полученного массива.
+Например, если на вход пришло [1, 2, 3, 4, 5, 6, 7], то на выход должно вернуться [3, 4, 5, 6, 7]
 
-server.use('/user', userRouter);
-server.use('/task', taskRouter);
+Передайте ранее полученный ревёрснутый массив в Вашу новую операцию.
+Выведите полученный массив с помощью операции logArray.
+Итоговый вывод программы вместе с первым пунктом должен быть такой:
+Массив: X-0,X-1,X-2,X-3,X-4,X-5,X-6,X-7,X-8,X-9
+Массив: X-9,X-8,X-7,X-6,X-5,X-4,X-3,X-2,X-1,X-0
+Массив: X-4,X-3,X-2,X-1,X-0
+ */
 
-server.use(ErrorHandler);
+enum ExecutorOperations {
+  fillArrayWithElements = 'fillArrayWithElements',
+  logArray = 'logArray',
+  reverseArray = 'reverseArray',
+  fiveLastArray = 'fiveLastArray',
+}
 
-logRoutes(server);
+class Executor {
+  public execute(command: ExecutorOperations, arg: any) {
+    return this[command](arg);
+  }
 
-server.listen(port, () => console.log(`Server started on port ${port}`));
+  private fillArrayWithElements<T>(element: T): string[] {
+    return new Array(10).fill(element).map((el, i) => `${el}-${i}`);
+  }
+
+  private logArray<T>(array: T[]): void {
+    console.log(`Массив: ${array}`);
+  }
+
+  private reverseArray<T>(array: T[]) {
+    return Array.from(array).reverse();
+  }
+
+  private fiveLastArray<T>(array: T[]) {
+    return array.reverse().slice(-5);
+  }
+}
+
+const executor = new Executor();
+
+const array = executor.execute(ExecutorOperations.fillArrayWithElements, 'X');
+
+executor.execute(ExecutorOperations.logArray, array);
+
+const reversedArray = executor.execute(ExecutorOperations.reverseArray, array);
+
+executor.execute(ExecutorOperations.logArray, reversedArray);
+
+const fiveLastedArray = executor.execute(ExecutorOperations.fiveLastArray, array);
+
+executor.execute(ExecutorOperations.logArray, fiveLastedArray);
