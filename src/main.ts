@@ -1,120 +1,139 @@
-/*
-Создайте класс MyStorage<T>, который необходим для хранения и работы с объектами типа T.
-Внутри этот класс должен хранить элементы в приватном массиве.
-Для работы с элементами должны существовать 4 публичных метода:
-* create - принимает на вход объект, добавляет к нему поле id - уникальный идентификатор,
-  он не должен пересекаться с теми id, которые уже есть в хранилище.
-  Проще всего использовать числовой id и увеличивать его - 1, 2, 3, 4, ... и так далее
-* read - принимает на вход id и возвращает из хранилища элемент с этим id, или undefined, если такого элемента нет
-* delete - принимает на вход id и удаляет из хранилища элемент с этим id, ничего не возращает
-* update - принимает на вход id и частичную сущность. Ищет в хранилище элемент с таким id и обновляет его.
-
-Так же для тестов необходимо предоставить публичный метод getStorage(), который будет возвращать использующийся массив
-
-Чтобы проверить работоспособность кода, необходимо просто его запустить.
-Если что-то не работает, вы увидите ошибку "It is no working as expected"
-Если всё работает, вы увидите "Всё работает!"
- */
-
-class MyStorage<T> {
-  private storage: (T & { id: number })[] = [];
-  private currentId: number = 1;
-
-  create(item: T) {
-    const newItem = { ...item, id: this.currentId };
-    this.storage.push(newItem);
-    this.currentId++;
-    return newItem;
+const defineCase = (value: string): Case => {
+  if (value.includes('-')) {
+    return 'kebab-case';
   }
 
-  read(id: number): (T & { id: number }) | undefined {
-    return this.storage.find((item) => item.id === id);
+  if (value.includes('_')) {
+    return 'snake_case';
   }
 
-  delete(id: number) {
-    this.storage = this.storage.filter((item) => item.id !== id);
+  if (value[0] === value[0].toUpperCase()) {
+    return 'PascalCase';
   }
 
-  update(id: number, partialItem: Partial<T>) {
-    const index = this.storage.findIndex((item) => item.id === id);
-    this.storage[index] = { ...this.storage[index], ...partialItem };
-    return this.storage[index];
-  }
-
-  getStorage(): (T & { id: number })[] {
-    return this.storage;
-  }
-}
-
-type User = {
-  name: string;
-  age: number;
+  return 'camelCase';
 };
 
-const storage = new MyStorage<User>();
-storage.create({ name: 'first', age: 1 });
-storage.create({ name: 'second', age: 2 });
-storage.create({ name: 'third', age: 3 });
+function splitWords(value: string, currentCase: Case): string[] {
+  if (currentCase === 'kebab-case') {
+    return value.split('-');
+  }
 
-storage.delete(2);
+  if (currentCase === 'snake_case') {
+    return value.split('_');
+  }
 
-storage.create({ name: 'fourth', age: 4 });
+  const words = [];
+  let word = '';
 
-let updatedFirst;
-updatedFirst = storage.update(1, { name: 'first-new-name' });
-updatedFirst = storage.update(1, {});
-updatedFirst = storage.update(1, { age: 11 });
+  word += value[0];
 
-const updatedFourth = storage.update(4, { age: 44, name: 'fourth-new-name' });
+  for (let i = 1; i < value.length; i++) {
+    const letter = value[i];
 
-const user1 = storage.read(1);
-const user3 = storage.read(3);
-const user5 = storage.read(5);
+    if (letter === letter.toUpperCase()) {
+      words.push(word);
+      word = letter;
+      continue;
+    }
 
-// На этих строчках должны гореть ошибки! Для запуска кода закомментируйте их!
-// storage.update(1000, { age: 'a' }); // Должна гореть ошибка, что поле age должно являться числом
-// storage.update(1000, { x: true }); // Должна гореть ошибка, что поля x нет в User
+    word += letter;
+  }
 
-// Тест-кейсы
-const th = () => {
-  throw Error('It is no working as expected');
+  if (word.length > 0) {
+    words.push(word);
+  }
+
+  return words;
+}
+
+const joinWords = (words: string[], usingCase: Case): string => {
+  if (usingCase === 'kebab-case') {
+    return words.map((word) => word.toLowerCase()).join('-');
+  }
+
+  if (usingCase === 'snake_case') {
+    return words.map((word) => word.toLowerCase()).join('_');
+  }
+
+  let result = '';
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i].toLowerCase();
+
+    if (i === 0) {
+      const firstLetter = usingCase === 'PascalCase' ? word[0].toUpperCase() : word[0];
+      const otherLetters = word.slice(1, word.length);
+
+      result += firstLetter + otherLetters;
+      continue;
+    }
+
+    const firstLetter = word[0];
+    const otherLetters = word.slice(1, word.length);
+
+    result += firstLetter.toUpperCase() + otherLetters;
+  }
+
+  return result;
 };
-const [item1, item2, item3, item4] = storage.getStorage();
 
-if (item1.id !== 3 || item1.age !== 3 || item1.name !== 'third') {
-  th();
+function changeCase(input: string, targetCase: Case): string {
+  const originalCase = defineCase(input);
+
+  if (originalCase === targetCase) {
+    return input;
+  }
+
+  const words = splitWords(input, originalCase);
+
+  const result = joinWords(words, targetCase);
+
+  return result;
 }
 
-if (item2.id !== 1 || item2.age !== 11 || item2.name !== 'first-new-name') {
-  th();
-}
+type Case = 'PascalCase' | 'camelCase' | 'snake_case' | 'kebab-case';
+type Input = string;
+type ExpectedResult = string;
 
-if (item3.id !== 4 || item3.age !== 44 || item3.name !== 'fourth-new-name') {
-  th();
-}
+const input = 'example';
+const camelInput = 'twoWords';
+const pascalInput = 'PascalInputExample';
+const kebabInput = 'it-is-just-a-kebab-input';
 
-if (item4 !== undefined) {
-  th();
-}
+const tests: [Input, Case, ExpectedResult][] = [
+  // Проверка работы с одним словом
+  [input, 'camelCase', 'example'],
+  [input, 'PascalCase', 'Example'],
+  [input, 'snake_case', 'example'],
+  [input, 'kebab-case', 'example'],
 
-if (updatedFirst.id !== 1 || updatedFirst.age !== 11 || updatedFirst.name !== 'first-new-name') {
-  th();
-}
+  // Проверка работы с двумя словами в camelCase
+  [camelInput, 'camelCase', 'twoWords'],
+  [camelInput, 'PascalCase', 'TwoWords'],
+  [camelInput, 'snake_case', 'two_words'],
+  [camelInput, 'kebab-case', 'two-words'],
 
-if (updatedFourth.id !== 4 || updatedFourth.age !== 44 || updatedFourth.name !== 'fourth-new-name') {
-  th();
-}
+  // Проверка работы с тремя словами в PascalCase
+  [pascalInput, 'camelCase', 'pascalInputExample'],
+  [pascalInput, 'PascalCase', 'PascalInputExample'],
+  [pascalInput, 'snake_case', 'pascal_input_example'],
+  [pascalInput, 'kebab-case', 'pascal-input-example'],
 
-if (user1?.id !== 1 || user1?.age !== 11 || user1?.name !== 'first-new-name') {
-  th();
-}
+  // Проверка работы с шестью словами в kebab-case
+  [kebabInput, 'camelCase', 'itIsJustAKebabInput'],
+  [kebabInput, 'PascalCase', 'ItIsJustAKebabInput'],
+  [kebabInput, 'snake_case', 'it_is_just_a_kebab_input'],
+  [kebabInput, 'kebab-case', 'it-is-just-a-kebab-input'],
+];
 
-if (user3?.id !== 3 || user3?.age !== 3 || user3?.name !== 'third') {
-  th();
-}
+for (const test of tests) {
+  const [input, toCase, expectedResult] = test;
+  const result = changeCase(input, toCase);
 
-if (user5 !== undefined) {
-  th();
+  if (result === expectedResult) {
+    console.log(`Успех! Слово "${input}" в "${toCase}": ${result}.`);
+  } else {
+    console.error(`Ошибка! Слово "${input}" в "${toCase}": ${result}. А ожидалось: "${expectedResult}"`);
+  }
 }
-
-console.log('Всё работает!');
