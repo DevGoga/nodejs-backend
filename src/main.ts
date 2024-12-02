@@ -43,6 +43,7 @@ const generatePassword = (options?: Options): string => {
       char = characters[randomIndex];
     } while (
       (!allows.allowDuplicates && usedChars.has(char)) ||
+      // eslint-disable-next-line no-unmodified-loop-condition
       (i > 0 && !allows.allowSequentials && password[i - 1] === char)
     );
 
